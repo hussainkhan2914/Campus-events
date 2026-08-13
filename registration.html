@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CampusEvents - Register</title>
+
+
+<style>
+
+/* =========================
+   COLOR THEME
+========================= */
+
+:root {
+    --primary: #17122b;
+    --primary-light: #30205c;
+    --accent: #00e5ff;
+    --purple: #7c3aed;
+
+    --bg: #f5f3ff;
+    --text: #25213b;
+
+    --white: #ffffff;
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(124,58,237,0.10),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(0,229,255,0.10),
+            transparent 25%
+        ),
+
+        var(--bg);
+
+    color: var(--text);
+
+    line-height: 1.5;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #17122b,
+            #30205c,
+            #17122b
+        );
+
+    color: white;
+
+    padding: 18px 40px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    box-shadow:
+        0 5px 20px rgba(124,58,237,0.35);
+
+    animation: headerDown 0.8s ease;
+}
+
+
+header h1 {
+
+    font-size: 26px;
+
+    letter-spacing: 0.5px;
+
+    animation: logoGlow 2s infinite alternate;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+nav a {
+
+    color: white;
+
+    text-decoration: none;
+
+    margin-left: 24px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    position: relative;
+
+    transition: all 0.3s ease;
+}
+
+
+nav a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: -7px;
+
+    width: 0;
+
+    height: 2px;
+
+    background: var(--accent);
+
+    transition: width 0.3s ease;
+}
+
+
+nav a:hover {
+
+    color: var(--accent);
+
+    transform: translateY(-3px);
+}
+
+
+nav a:hover::after,
+nav a.active::after {
+
+    width: 100%;
+}
+
+
+nav a.active {
+
+    color: var(--accent);
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+
+    padding: 55px 20px;
+
+    max-width: 560px;
+
+    margin: 0 auto;
+
+    position: relative;
+
+    animation: pageAppear 1s ease;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+h2 {
+
+    margin-bottom: 28px;
+
+    text-align: center;
+
+    color: var(--primary);
+
+    font-size: 32px;
+
+    font-weight: 800;
+
+    animation: titleAppear 0.9s ease;
+}
+
+
+h2::after {
+
+    content: "";
+
+    display: block;
+
+    width: 80px;
+
+    height: 4px;
+
+    margin: 10px auto 0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--accent)
+        );
+
+    animation: lineGrow 1s ease;
+}
+
+
+/* =========================
+   SUCCESS MESSAGE
+========================= */
+
+#successMsg {
+
+    display: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #10b981,
+            #059669
+        );
+
+    color: white;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+    text-align: center;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 8px 20px rgba(16,185,129,0.3);
+
+    animation: successPop 0.6s ease;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+form {
+
+    background:
+        rgba(255,255,255,0.90);
+
+    padding: 35px 30px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 15px 40px rgba(31,20,70,0.12);
+
+    border-top: 4px solid var(--purple);
+
+    backdrop-filter: blur(12px);
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation: formAppear 1s ease;
+}
+
+
+/* Form glow */
+
+form::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+
+    height: 180px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(0,229,255,0.08);
+
+    top: -90px;
+
+    right: -70px;
+
+    animation: floatingCircle 5s infinite ease-in-out;
+}
+
+
+form::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 140px;
+
+    height: 140px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(124,58,237,0.07);
+
+    bottom: -70px;
+
+    left: -60px;
+
+    animation: floatingCircle 6s infinite ease-in-out reverse;
+}
+
+
+/* =========================
+   LABELS
+========================= */
+
+label {
+
+    display: block;
+
+    margin-top: 19px;
+
+    margin-bottom: 7px;
+
+    font-weight: 700;
+
+    color: var(--primary);
+
+    font-size: 14px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+input,
+select {
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1.5px solid #ddd8ec;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+
+    background: #fbfaff;
+
+    color: var(--text);
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+input:hover,
+select:hover {
+
+    border-color: #b8a9e8;
+}
+
+
+input:focus,
+select:focus {
+
+    outline: none;
+
+    border-color: var(--accent);
+
+    background: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 0 3px rgba(0,229,255,0.12),
+        0 5px 15px rgba(124,58,237,0.10);
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error {
+
+    color: #e11d48;
+
+    font-size: 13px;
+
+    margin-top: 6px;
+
+    display: none;
+
+    font-weight: 600;
+
+    animation: errorShake 0.4s ease;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+
+    margin-top: 28px;
+
+    width: 100%;
+
+    padding: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            #00bcd4
+        );
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.4px;
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+    z-index: 2;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* Button shine */
+
+button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 55%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.45),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left 0.6s ease;
+}
+
+
+button:hover::before {
+
+    left: 130%;
+}
+
+
+button:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.01);
+
+    box-shadow:
+        0 10px 25px rgba(124,58,237,0.35),
+        0 0 20px rgba(0,229,255,0.15);
+}
+
+
+button:active {
+
+    transform:
+        translateY(0)
+        scale(0.98);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    background:
+        linear-gradient(
+            135deg,
+            #17122b,
+            #30205c
+        );
+
+    color: white;
+
+    text-align: center;
+
+    padding: 25px;
+
+    margin-top: 30px;
+
+    font-size: 14px;
+
+    box-shadow:
+        0 -5px 20px rgba(124,58,237,0.15);
+}
+
+
+footer p {
+
+    animation: pulse 2.5s infinite;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes headerDown {
+
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes logoGlow {
+
+    from {
+        text-shadow:
+            0 0 5px rgba(0,229,255,0.3);
+    }
+
+    to {
+        text-shadow:
+            0 0 10px var(--accent),
+            0 0 25px rgba(0,229,255,0.5);
+    }
+}
+
+
+@keyframes pageAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes titleAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes lineGrow {
+
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 80px;
+    }
+}
+
+
+@keyframes formAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+@keyframes floatingCircle {
+
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-25px) rotate(15deg);
+    }
+}
+
+
+@keyframes successPop {
+
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+@keyframes errorShake {
+
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+
+@keyframes pulse {
+
+    0%, 100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    header {
+
+        padding: 16px 20px;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    nav a {
+
+        margin: 0 7px;
+
+        font-size: 14px;
+    }
+
+
+    main {
+
+        padding: 40px 15px;
+    }
+
+
+    h2 {
+
+        font-size: 27px;
+    }
+
+
+    form {
+
+        padding: 28px 22px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <h1>🎓 CampusEvents</h1>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="event.html">
+            Events
+        </a>
+
+        <a href="registration.html" class="active">
+            Register
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+    <h2>Register for an Event</h2>
+
+
+    <!-- SUCCESS MESSAGE -->
+
+    <div id="successMsg">
+        ✅ Registration Successful!
+    </div>
+
+
+    <!-- REGISTRATION FORM -->
+
+    <form
+        id="regForm"
+        onsubmit="return validateForm()">
+
+
+        <!-- NAME -->
+
+        <label for="name">
+            Full Name:
+        </label>
+
+        <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your full name">
+
+        <div
+            class="error"
+            id="nameError">
+
+            Please enter your name
+
+        </div>
+
+
+        <!-- STUDENT ID -->
+
+        <label for="studentId">
+            Student ID:
+        </label>
+
+        <input
+            type="text"
+            id="studentId"
+            name="studentId"
+            placeholder="Enter your student ID">
+
+        <div
+            class="error"
+            id="idError">
+
+            Please enter your student ID
+
+        </div>
+
+
+        <!-- EVENT -->
+
+        <label for="event">
+            Select Event:
+        </label>
+
+        <select
+            id="event"
+            name="event">
+
+            <option>Hackathon</option>
+
+            <option>Dance Competition</option>
+
+            <option>Sports Meet</option>
+
+            <option>Coding Contest</option>
+
+        </select>
+
+
+        <!-- EMAIL -->
+
+        <label for="email">
+            Email:
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@gmail.com">
+
+        <div
+            class="error"
+            id="emailError">
+
+            Please enter a valid email
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <label for="phone">
+            Phone Number:
+        </label>
+
+        <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Enter 10-digit phone number"
+            maxlength="10">
+
+        <div
+            class="error"
+            id="phoneError">
+
+            Please enter a valid 10-digit phone number
+
+        </div>
+
+
+        <!-- BUTTON -->
+
+        <button type="submit">
+
+            🚀 Register Now
+
+        </button>
+
+    </form>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        &copy; 2026 CampusEvents | Your College Name
+    </p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+function validateForm() {
+
+    let isValid = true;
+
+
+    const name =
+        document.getElementById("name")
+        .value
+        .trim();
+
+
+    const studentId =
+        document.getElementById("studentId")
+        .value
+        .trim();
+
+
+    const email =
+        document.getElementById("email")
+        .value
+        .trim();
+
+
+    const phone =
+        document.getElementById("phone")
+        .value
+        .trim();
+
+
+    /* Hide previous errors */
+
+    document
+        .querySelectorAll(".error")
+        .forEach(error => {
+
+            error.style.display = "none";
+
+        });
+
+
+    /* Name validation */
+
+    if (name === "") {
+
+        document
+            .getElementById("nameError")
+            .style.display = "block";
+
+        isValid = false;
+    }
+
+
+    /* Student ID validation */
+
+    if (studentId === "") {
+
+        document
+            .getElementById("idError")
+            .style.display = "block";
+
+        isValid = false;
+    }
+
+
+    /* Email validation */
+
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+    if (!emailPattern.test(email)) {
+
+        document
+            .getElementById("emailError")
+            .style.display = "block";
+
+        isValid = false;
+    }
+
+
+    /* Phone validation */
+
+    const phonePattern =
+        /^[0-9]{10}$/;
+
+
+    if (!phonePattern.test(phone)) {
+
+        document
+            .getElementById("phoneError")
+            .style.display = "block";
+
+        isValid = false;
+    }
+
+
+    /* Successful registration */
+
+    if (isValid) {
+
+        const success =
+            document.getElementById("successMsg");
+
+
+        success.style.display = "block";
+
+
+        success.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+
+        document
+            .getElementById("regForm")
+            .reset();
+
+    }
+
+
+    return false;
+}
+
+</script>
+
+
+</body>
+
+</html>
