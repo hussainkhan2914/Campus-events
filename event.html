@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CampusEvents - Events</title>
+
+
+<style>
+
+/* =========================
+   COLOR THEME
+========================= */
+
+:root {
+    --primary: #17122b;
+    --primary-light: #30205c;
+    --accent: #00e5ff;
+    --purple: #7c3aed;
+
+    --bg: #f5f3ff;
+    --text: #25213b;
+
+    --white: #ffffff;
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(124,58,237,0.08),
+            transparent 30%
+        ),
+        var(--bg);
+
+    color: var(--text);
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+
+    background:
+        linear-gradient(
+            135deg,
+            #17122b,
+            #30205c,
+            #17122b
+        );
+
+    color: white;
+
+    padding: 18px 40px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    box-shadow:
+        0 5px 20px rgba(124,58,237,0.35);
+
+    animation: headerDown 0.8s ease;
+}
+
+
+header h1 {
+
+    font-size: 26px;
+
+    letter-spacing: 0.5px;
+
+    animation: logoGlow 2s infinite alternate;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+nav a {
+
+    color: white;
+
+    text-decoration: none;
+
+    margin-left: 24px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    position: relative;
+
+    transition: all 0.3s ease;
+}
+
+
+nav a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: -7px;
+
+    width: 0;
+
+    height: 2px;
+
+    background: var(--accent);
+
+    transition: width 0.3s ease;
+}
+
+
+nav a:hover {
+
+    color: var(--accent);
+
+    transform: translateY(-3px);
+}
+
+
+nav a:hover::after {
+
+    width: 100%;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+
+    padding: 50px 30px;
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    animation: pageAppear 1s ease;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+h2 {
+
+    font-size: 34px;
+
+    margin-bottom: 28px;
+
+    color: var(--primary);
+
+    position: relative;
+
+    animation: titleAppear 0.8s ease;
+}
+
+
+h2::after {
+
+    content: "";
+
+    display: block;
+
+    width: 80px;
+
+    height: 4px;
+
+    margin-top: 8px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--accent)
+        );
+}
+
+
+/* =========================
+   FILTER BUTTONS
+========================= */
+
+.filters {
+
+    margin-bottom: 28px;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+}
+
+
+.filters button {
+
+    padding: 11px 20px;
+
+    border: 2px solid transparent;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary-light)
+        );
+
+    color: white;
+
+    border-radius: 25px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+/* Button shine */
+
+.filters button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 50%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.3),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left 0.5s ease;
+}
+
+
+.filters button:hover::before {
+
+    left: 130%;
+}
+
+
+.filters button:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 8px 20px rgba(124,58,237,0.3);
+}
+
+
+.filters button.active-filter {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            #00bcd4
+        );
+
+    box-shadow:
+        0 6px 20px rgba(0,229,255,0.3);
+
+    border-color: rgba(255,255,255,0.4);
+}
+
+
+/* =========================
+   TABLE CONTAINER
+========================= */
+
+#eventsTable {
+
+    width: 100%;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    background: rgba(255,255,255,0.85);
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 30px rgba(31,20,70,0.12);
+
+    backdrop-filter: blur(10px);
+
+    animation: tableAppear 1.2s ease;
+}
+
+
+/* =========================
+   TABLE HEADER
+========================= */
+
+th {
+
+    padding: 18px 20px;
+
+    text-align: left;
+
+    color: white;
+
+    font-size: 15px;
+
+    letter-spacing: 0.5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary-light)
+        );
+
+    position: relative;
+}
+
+
+/* Cyan line */
+
+th::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--accent)
+        );
+}
+
+
+/* =========================
+   TABLE CELLS
+========================= */
+
+td {
+
+    padding: 17px 20px;
+
+    text-align: left;
+
+    border-bottom: 1px solid rgba(124,58,237,0.1);
+
+    font-size: 15px;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* Category badges */
+
+td:nth-child(2) {
+
+    font-weight: 700;
+
+    color: var(--purple);
+}
+
+
+/* Date */
+
+td:nth-child(3) {
+
+    font-weight: 600;
+
+    color: #4b426c;
+}
+
+
+/* Venue */
+
+td:nth-child(4) {
+
+    color: #55506b;
+}
+
+
+/* =========================
+   ROW HOVER
+========================= */
+
+#eventsTable tbody tr:hover,
+#eventsTable tr[data-category]:hover {
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(124,58,237,0.08),
+            rgba(0,229,255,0.06)
+        );
+
+    transform: scale(1.01);
+
+    box-shadow:
+        0 5px 15px rgba(124,58,237,0.08);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    background:
+        linear-gradient(
+            135deg,
+            #17122b,
+            #30205c
+        );
+
+    color: white;
+
+    text-align: center;
+
+    padding: 25px;
+
+    margin-top: 40px;
+
+    font-size: 14px;
+
+    box-shadow:
+        0 -5px 20px rgba(124,58,237,0.15);
+}
+
+
+footer p {
+
+    animation: pulse 2.5s infinite;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes headerDown {
+
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes logoGlow {
+
+    from {
+        text-shadow:
+            0 0 5px rgba(0,229,255,0.3);
+    }
+
+    to {
+        text-shadow:
+            0 0 10px var(--accent),
+            0 0 25px rgba(0,229,255,0.5);
+    }
+}
+
+
+@keyframes pageAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+@keyframes titleAppear {
+
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes tableAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+@keyframes pulse {
+
+    0%, 100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    header {
+
+        padding: 16px 20px;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    nav a {
+
+        margin: 0 7px;
+
+        font-size: 14px;
+    }
+
+
+    main {
+
+        padding: 35px 15px;
+    }
+
+
+    h2 {
+
+        font-size: 28px;
+    }
+
+
+    .filters button {
+
+        padding: 9px 15px;
+
+        font-size: 14px;
+    }
+
+
+    #eventsTable {
+
+        font-size: 13px;
+
+        display: block;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+    }
+
+
+    th,
+    td {
+
+        padding: 13px 15px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <h1>🎓 CampusEvents</h1>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="event.html">Events</a>
+
+        <a href="registration.html">Register</a>
+
+        <a href="contact.html">Contact</a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+    <h2>All College Events</h2>
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+        <button
+            onclick="filterEvents('all', this)"
+            class="active-filter">
+
+            All
+
+        </button>
+
+
+        <button
+            onclick="filterEvents('Technical', this)">
+
+            💻 Technical
+
+        </button>
+
+
+        <button
+            onclick="filterEvents('Cultural', this)">
+
+            🎭 Cultural
+
+        </button>
+
+
+        <button
+            onclick="filterEvents('Sports', this)">
+
+            🏆 Sports
+
+        </button>
+
+    </div>
+
+
+    <!-- EVENTS TABLE -->
+
+    <table id="eventsTable">
+
+        <thead>
+
+            <tr>
+
+                <th>Event Name</th>
+
+                <th>Category</th>
+
+                <th>Date</th>
+
+                <th>Venue</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            <tr data-category="Technical">
+
+                <td>🚀 Hackathon</td>
+
+                <td>Technical</td>
+
+                <td>15 Sept 2026</td>
+
+                <td>Computer Lab</td>
+
+            </tr>
+
+
+            <tr data-category="Cultural">
+
+                <td>💃 Dance Competition</td>
+
+                <td>Cultural</td>
+
+                <td>18 Sept 2026</td>
+
+                <td>Auditorium</td>
+
+            </tr>
+
+
+            <tr data-category="Sports">
+
+                <td>🏆 Sports Meet</td>
+
+                <td>Sports</td>
+
+                <td>25 Sept 2026</td>
+
+                <td>Ground</td>
+
+            </tr>
+
+
+            <tr data-category="Technical">
+
+                <td>👨‍💻 Coding Contest</td>
+
+                <td>Technical</td>
+
+                <td>28 Sept 2026</td>
+
+                <td>Lab 2</td>
+
+            </tr>
+
+
+            <tr data-category="Cultural">
+
+                <td>🎬 Drama Night</td>
+
+                <td>Cultural</td>
+
+                <td>30 Sept 2026</td>
+
+                <td>Open Air Theatre</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        &copy; 2026 CampusEvents | Your College Name
+    </p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+function filterEvents(category, button) {
+
+    const rows =
+        document.querySelectorAll(
+            "#eventsTable tr[data-category]"
+        );
+
+
+    rows.forEach(row => {
+
+        if (
+            category === "all" ||
+            row.getAttribute("data-category") === category
+        ) {
+
+            row.style.display = "";
+
+            row.style.animation =
+                "tableAppear 0.4s ease";
+
+        } else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+
+    /* Remove active button */
+
+    document
+        .querySelectorAll(".filters button")
+        .forEach(btn => {
+
+            btn.classList.remove("active-filter");
+
+        });
+
+
+    /* Add active button */
+
+    button.classList.add("active-filter");
+
+}
+
+</script>
+
+
+</body>
+
+</html>
